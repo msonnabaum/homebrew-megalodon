@@ -4,20 +4,20 @@ class Apc < Formula
   url 'http://pecl.php.net/get/APC-3.1.6.tgz'
   homepage 'http://pecl.php.net/package/apc'
   md5 '624b8030254f897face30789d64e6b7e'
+  head "http://svn.php.net/repository/pecl/apc/trunk/", :using => :svn
 
   depends_on 'pcre'
 
   def install
     extensions = lib + %x[php-config --extension-dir].split('lib/')[1].strip
 
-    Dir.chdir "APC-#{version}" do
-      system "phpize"
-      system "./configure", "--prefix=#{prefix}"
-      system "make"
+    Dir.chdir "APC-#{version}" unless ARGV.build_head?
+    system "phpize"
+    system "./configure", "--prefix=#{prefix}"
+    system "make"
 
-      prefix.install "apc.php"
-      extensions.install "modules/apc.so"
-    end
+    prefix.install "apc.php"
+    extensions.install "modules/apc.so"
   end
 
   def caveats; <<-EOS.undent
