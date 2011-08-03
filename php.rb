@@ -117,6 +117,7 @@ class Php < Formula
     # Enable PHP FPM
     if ARGV.include? '--with-fpm'
       args.push "--enable-fpm"
+      args.push "--with-fpm-conf=#{prefix}/etc/php5/php-fpm.conf"
     end
 
     # Build Apache module
