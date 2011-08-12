@@ -117,7 +117,7 @@ class Php < Formula
     # Enable PHP FPM
     if ARGV.include? '--with-fpm'
       args.push "--enable-fpm"
-      args.push "--with-fpm-conf=#{prefix}/etc/php5/php-fpm.conf"
+      args.push "--with-fpm-conf=#{HOMEBREW_PREFIX}/etc/php5/fpm/php-fpm.conf"
     end
 
     # Build Apache module
@@ -153,7 +153,9 @@ class Php < Formula
     end
 
     if ARGV.include? '--with-cgi'
-      args.push "--enable-cgi"
+      unless (ARGV.include? '--with-fpm') && (ARGV.include? '--with-apache')
+        args.push "--enable-cgi"
+      end
     end
 
     args.push "--with-readline=#{Formula.factory('readline').prefix}" unless ARGV.include? '--without-readline'
@@ -175,6 +177,24 @@ class Php < Formula
 
     system "make"
     system "make install"
+
+    if ARGV.include? '--with-cgi'
+      if ARGV.include? '--with-fpm'
+        args.delete "--enable-fpm"
+        args.delete "--with-fpm-conf=#{HOMEBREW_PREFIX}/etc/php5/fpm/php-fpm.conf"
+      end
+
+      if ARGV.include? '--with-apache'
+        args.delete "--with-apxs2=/usr/sbin/apxs"
+        args.delete "--libexecdir=#{prefix}/libexec"
+      end
+
+      args.push "--enable-cgi"
+      system "./configure", *args
+      system "make"
+      system "make install"
+    end
+
     (prefix+'etc/php5').install "php.ini-production" => "php.ini"
 
     if ARGV.include? '--with-fpm'
