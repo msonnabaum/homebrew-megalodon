@@ -13,16 +13,16 @@ class Megalodon <Formula
 end
 
 __END__
- diff --git a/megalodon b/megalodon
- index 5aaa092..b2c5e10 100755
- --- a/megalodon
- +++ b/megalodon
- @@ -4,7 +4,7 @@ begin
-    require "rubygems"
-    require 'chef'
-  
- -  cwd = Dir.pwd
- +  cwd = `brew --prefix megalodon`
-    puts "Copying custom forumulas"
-    system("cp #{cwd}/formulas/* /usr/local/Library/Formula/")
-    puts "Starting chef-solo run"
+diff --git a/megalodon b/megalodon
+index 5aaa092..b2c5e10 100755
+--- a/megalodon
++++ b/megalodon
+@@ -4,7 +4,7 @@ begin
+   require "rubygems"
+   require 'chef'
+ 
+-  cwd = Dir.pwd
++  cwd = `brew --prefix megalodon`.strip
+   puts "Copying custom forumulas"
+   system("cp #{cwd}/formulas/* /usr/local/Library/Formula/")
+   puts "Starting chef-solo run"
