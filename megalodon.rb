@@ -14,7 +14,7 @@ end
 
 __END__
 diff --git a/megalodon b/megalodon
-index 5aaa092..b2c5e10 100755
+index 61615e5..27020a7 100755
 --- a/megalodon
 +++ b/megalodon
 @@ -4,7 +4,7 @@ begin
@@ -23,6 +23,6 @@ index 5aaa092..b2c5e10 100755
  
 -  cwd = Dir.pwd
 +  cwd = `brew --prefix megalodon`.strip
-   puts "Copying custom forumulas"
-   system("cp #{cwd}/formulas/* /usr/local/Library/Formula/")
-   puts "Starting chef-solo run"
+   gem_path = `gem env| grep "EXECUTABLE DIRECTORY"| awk -F': ' '{print $2}'`.strip
+   unless File.exists?("#{gem_path}/chef-solo")
+     raise "Cannot find chef-solo at #{gem_path}/chef-solo}"
