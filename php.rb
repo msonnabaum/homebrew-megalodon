@@ -63,7 +63,7 @@ class Php < Formula
       "--prefix=#{prefix}",
       "--disable-debug",
       "--disable-dependency-tracking",
-      "--with-config-file-path=#{prefix}/etc/php5",
+      "--with-config-file-path=#{HOMEBREW_PREFIX}/etc/php5",
       "--with-config-file-scan-dir=#{HOMEBREW_PREFIX}/etc/php5/conf.d",
       "--with-iconv-dir=/usr",
       "--enable-exif",
