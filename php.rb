@@ -5,10 +5,10 @@ def mysql_installed?
 end
 
 class Php < Formula
-  url 'http://www.php.net/get/php-5.3.8.tar.gz/from/this/mirror'
+  url 'http://www.php.net/get/php-5.3.15.tar.gz/from/this/mirror'
   homepage 'http://php.net/'
-  md5 'f4ce40d5d156ca66a996dbb8a0e7666a'
-  version '5.3.8'
+  md5 '7c885c79a611b89f3a1095fce6eae5c6'
+  version '5.3.15'
 
   # So PHP extensions don't report missing symbols
   skip_clean ['bin', 'sbin']
